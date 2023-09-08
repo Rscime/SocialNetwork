@@ -10,7 +10,7 @@ const reactionSchema = new Schema (
           type: String,
           required: true,
           minlength: 1,
-          maxkength: 280,
+          maxlength: 280,
       },
       username: {
           type: String,
@@ -20,6 +20,7 @@ const reactionSchema = new Schema (
           type: Date,
           //NEED TO FIND A DATE THINGY
           // Use a getter
+          get: () => new Date(),
       },
   },
   {
@@ -38,11 +39,12 @@ const thoughtSchema = new Schema (
         type: String,
         required: true,
         minlength: 1,
-        maxkength: 280,
+        maxlength: 280,
     },
     createdAt: {
         type: Date,
         //NEED TO FIND A DATE THINGY
+        get: () => new Date(),
     },
     username: {
         type: String,
