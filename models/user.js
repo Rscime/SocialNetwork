@@ -1,4 +1,4 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model, Types } = require('mongoose');
 
 const userSchema = new Schema(
 {
@@ -43,5 +43,5 @@ userSchema
     return this.friends.length;
   });
 
-const User = model('User', userSchema);
+const User = model('user', userSchema);
 module.exports = User;
