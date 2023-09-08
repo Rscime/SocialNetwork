@@ -39,7 +39,7 @@ module.exports = {
         try{
             const user = await User.findOneAndUpdate(
                 {_id: req.params.userId},
-                {$addToSet: {username: req.body, email: req.body}},
+                {$set: req.body},
                 { runValidators: true, new: true }
             );
             
@@ -66,4 +66,41 @@ module.exports = {
             res.status(505).json(err);
         }
     },
+//Friends
+    //POST new friend to user by id
+    async addFriend(req, res) {
+        try {
+            const user = await User.findOneAndUpdate(
+                {_id: req.params.userId},
+                { $addToSet: {friends: req.params.friendId} },
+                { runValidators: true, new: true}
+            );
+
+            if(!user) {
+                return res.status(404).json({message: 'No user found with that id'});
+            }
+
+            res.json(user);
+        } catch (err) {
+            res.status(505).json(err);
+        }
+    },
+    //DELETE friend by id
+    async deleteFriend(req, res) {
+        try {
+            const user = await User.findOneAndUpdate(
+                {_id: req.params.userId},
+                {$pull: {friends: { friendId: req.params.friendId}}},
+                { runValidators: true, new: true}  
+            );
+
+            if(!user) {
+                return res.status(404).json({message: 'No user found with that id'});
+            }
+
+            res.json(user);
+        } catch (err) {
+            res.status(505).json(err);
+        }
+    }
 };
