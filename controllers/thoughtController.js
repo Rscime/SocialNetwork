@@ -32,7 +32,7 @@ module.exports = {
             // Update users thought array by id
             return User.findOneAndUpdate(
                 {_id: req.body.userId},
-                {$push: {thoughts: _id}},
+                {$push: {thoughts: thought._id}},
                 {new: true}
             );
         } catch (err) {
